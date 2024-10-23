@@ -74,7 +74,7 @@ class WPS_Config {
 
         foreach ( $registered_post_types as $post_type => &$args )
         {
-            if( !in_array($post_type, ['post', 'page', 'edition']) )
+            if( !in_array($post_type, ['post', 'page', 'edition', 'media']) )
             {
                 if( (isset($args['enable_for_blogs']) && !in_array($current_blog_id, (array)$args['enable_for_blogs'])) || (isset($args['disable_for_blogs']) && in_array($current_blog_id, (array)$args['disable_for_blogs'])))
                     continue;

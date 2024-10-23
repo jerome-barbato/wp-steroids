@@ -1,3 +1,7 @@
+### 1.4.5
+- display archive pages when trying to create a link
+- remove users from wp sitemap
+
 ### 1.4.4
 - Extend timber Post to prevent use of post_content for excerpt generation
 - added wp_customize section in config.yml

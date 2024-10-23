@@ -541,7 +541,7 @@ class WPS_Advanced_Custom_Fields{
 
         $field = array_merge($field_args, [
             'key' => $this->generateHash('field', $key),
-            'label' => $field_args['label']??ucfirst($field_name),
+            'label' => $field_args['label']??ucfirst(str_replace('_', ' ', $field_name)),
             'name' => $field_name,
             'type' => $type
         ]);
