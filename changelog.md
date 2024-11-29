@@ -1,3 +1,6 @@
+### 1.4.6
+- block_editor_style defined in config now only load in iframe if WP > 4.7
+
 ### 1.4.5
 - display archive pages when trying to create a link
 - remove users from wp sitemap
