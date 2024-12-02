@@ -41,10 +41,7 @@ class WPS_Gutenberg
 	 */
 	function blockEditorSettings($editor_settings) {
 
-		global $_config, $wp_version;
-
-        if( version_compare( $wp_version, '4.7', '<' ) )
-            return $editor_settings;
+		global $_config;
 
         if( is_multisite() )
             $base_url = network_home_url();
@@ -63,16 +60,16 @@ class WPS_Gutenberg
 
             $cssUrl = apply_filters('block_editor_settings_theme_css', $base_url.$block_editor_style);
 
-            if( !empty($css = @file_get_contents($cssUrl)) ){
+            if( !empty($cssUrl) )
+                $editor_settings['__unstableResolvedAssets']['styles'] .= "<link rel='stylesheet' id='theme-css' href='".$cssUrl."' media='all' />";
+        }
 
-                $theme_styles_settings = array(
-                    'css'            => $css,
-                    '__unstableType' => 'theme',
-                    'isGlobalStyles' => true
-                );
+        if( $block_editor_script = $_config->get('gutenberg.block_editor_script', false) ){
 
-                $editor_settings['styles'][] = $theme_styles_settings;
-            }
+            $jsUrl = apply_filters('block_editor_settings_theme_script', $base_url.$block_editor_script);
+
+            if( !empty($jsUrl) )
+                $editor_settings['__unstableResolvedAssets']['styles'] .= "<script id='theme-js' src='".$jsUrl."'></script>";
         }
 
         return $editor_settings;
@@ -83,18 +80,24 @@ class WPS_Gutenberg
 	 */
 	function addBlockEditorAssets() {
 
-        global $_config, $wp_version;
+        global $_config;
 
         if( is_multisite() )
             $base_url = network_home_url();
         else
             $base_url = get_home_url();
 
-        if( $block_editor_script = $_config->get('gutenberg.block_editor_script', false) )
-            wp_enqueue_script('block_editor_script',$base_url.$block_editor_script);
+        if( $block_editor_script = $_config->get('gutenberg.block_editor_script', false) ){
 
-        if ( version_compare( $wp_version, '4.7', '<' ) && $block_editor_style = $_config->get('gutenberg.block_editor_style', false) )
-            wp_enqueue_style('block_editor_style',$base_url.$block_editor_style);
+            $jsUrl = apply_filters('block_editor_settings_theme_script', $base_url.$block_editor_script);
+            wp_enqueue_script('block_editor_script',$jsUrl);
+        }
+
+        if ( $block_editor_style = $_config->get('gutenberg.block_editor_style', false) ){
+
+            $cssUrl = apply_filters('block_editor_settings_theme_css', $base_url.$block_editor_style);
+            wp_enqueue_style('block_editor_style',$cssUrl);
+        }
     }
 
     /**
@@ -119,7 +122,7 @@ class WPS_Gutenberg
 
     public function __construct()
     {
-	    global $_config;
+	    global $_config, $wp_version;
 
         if ( $_config->get('gutenberg.disable_classic_theme_styles', true) )
             remove_action( 'wp_enqueue_scripts', 'wp_enqueue_classic_theme_styles' );
@@ -132,9 +135,10 @@ class WPS_Gutenberg
 			if ( $_config->get('gutenberg.remove_core_block', false) )
 				add_filter( 'allowed_block_types_all', [$this, 'removeCoreBlock'], 25, 2 );
 
-            add_action( 'enqueue_block_assets', [$this, 'addBlockEditorAssets'] );
-
-            add_filter( 'block_editor_settings_all', [$this, 'blockEditorSettings'] );
+            if( version_compare( $wp_version, '4.7', '<' ) )
+                add_action( 'enqueue_block_assets', [$this, 'addBlockEditorAssets'] );
+            else
+                add_filter( 'block_editor_settings_all', [$this, 'blockEditorSettings'] );
 
             add_action( 'init', [$this, 'registerTemplate']);
         }
