@@ -152,7 +152,7 @@ class WPS_Wordpress_Seo
 	public function __construct()
 	{
 		add_action('admin_init', [$this, 'init'] );
-		add_filter('terms_clauses', [$this, 'changeTermsOrder'], 10, 3);
+		add_filter('terms_clauses', [$this, 'changeTermsOrder'], 99, 3);
 
         add_filter( 'wpseo_sitemap_exclude_taxonomy', function( $value, $taxonomy ) {
 

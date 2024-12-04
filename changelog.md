@@ -1,5 +1,8 @@
+### 1.4.7
+- Fix Yoast primary term resolution priority
+
 ### 1.4.6
-- block_editor_style defined in config now only load in iframe if WP > 4.7
+- block_editor_style defined in config now removed from main editor if blocks are iframed
 
 ### 1.4.5
 - display archive pages when trying to create a link

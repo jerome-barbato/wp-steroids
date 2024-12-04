@@ -83,6 +83,19 @@
 				}
 			}
 		});
+
+		//remove block_editor-css from main editor if iFrame is enabled
+		//Todo: find a better way to detect iFrame
+		if( document.querySelector('[name="editor-canvas"]') ){
+
+			let style = document.getElementById('block_editor-css')
+
+			if( style ){
+
+				let head = document.getElementsByTagName('head')[0];
+				head.removeChild(style)
+			}
+		}
 	}
 
 	function initTranslation(){
