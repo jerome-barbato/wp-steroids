@@ -96,6 +96,17 @@
 				head.removeChild(style)
 			}
 		}
+
+		let blocks = window.wp.data.select('core/block-editor').getBlocks();
+
+		if( blocks ){
+
+			blocks.forEach(function(block){
+
+				if( block.attributes.mode === 'edit' )
+					wp.data.dispatch('core/block-editor').updateBlockAttributes(block.clientId, { mode: 'preview' });
+			})
+		}
 	}
 
 	function initTranslation(){
