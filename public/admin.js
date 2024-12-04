@@ -84,11 +84,11 @@
 			}
 		});
 
-		//remove block_editor-css from main editor if iFrame is enabled
+		//remove block_editor_style-css from main editor if iFrame is enabled
 		//Todo: find a better way to detect iFrame
 		if( document.querySelector('[name="editor-canvas"]') ){
 
-			let style = document.getElementById('block_editor-css')
+			let style = document.getElementById('block_editor_style-css')
 
 			if( style ){
 

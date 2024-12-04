@@ -1,1 +1,2 @@
 .acf-block-preview > *{ pointer-events: none }
+html :where(.wp-block){ max-width: none }

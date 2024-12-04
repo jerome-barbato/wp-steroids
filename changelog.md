@@ -3,6 +3,7 @@
 
 ### 1.4.6
 - block_editor_style defined in config now removed from main editor if blocks are iframed
+- new `block_editor_settings_theme_script` & `block_editor_settings_theme_css` filter
 
 ### 1.4.5
 - display archive pages when trying to create a link

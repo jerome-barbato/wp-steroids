@@ -51,13 +51,13 @@ class WPS_Gutenberg
         if( $block_editor_script = $_config->get('gutenberg.block_editor_script', false) ){
 
             $jsUrl = apply_filters('block_editor_settings_theme_script', $base_url.$block_editor_script);
-            wp_enqueue_script('block_editor', $jsUrl);
+            wp_enqueue_script('block_editor_script', $jsUrl);
         }
 
         if ( $block_editor_style = $_config->get('gutenberg.block_editor_style', false) ){
 
             $cssUrl = apply_filters('block_editor_settings_theme_css', $base_url.$block_editor_style);
-            wp_enqueue_style('block_editor', $cssUrl);
+            wp_enqueue_style('block_editor_style', $cssUrl);
         }
 
         wp_enqueue_style('block_editor_reset', WPS_PLUGIN_URL.'public/reset-editor-styles.css');
