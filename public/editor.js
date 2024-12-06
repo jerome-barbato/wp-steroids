@@ -100,6 +100,20 @@ wpsEditor.class = {
         }
     },
 
+    removeCss(){
+
+        if( document.querySelector('[name="editor-canvas"]') ){
+
+            let style = document.getElementById('block_editor_style-css')
+
+            if( style ){
+
+                let head = document.getElementsByTagName('head')[0];
+                head.removeChild(style)
+            }
+        }
+    },
+
     init(){
 
         if( typeof wp == 'undefined' )
@@ -109,9 +123,11 @@ wpsEditor.class = {
 
             this.unregisterBlockType()
             this.watchDataChanges()
+
             this.allowInterfaceResizeInterval = setInterval(this.allowInterfaceResize, 100);
-            console.log(this.allowInterfaceResizeInterval)
         });
+
+        window.addEventListener("load", this.removeCss)
     }
 }
 

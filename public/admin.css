@@ -181,9 +181,7 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-tab-group li.active a{ font-weight: 500 }
 .acf-true-false{ padding: 5px 0 }
 .acf-input-prepend, .acf-input-append{ border-color:#c4cdd5; font-size: 13px }
-.acf-fields>.acf-field{ padding: 10px }
-.acf-fields.acf-block-fields>.acf-field{ padding: 10px 16px }
-.acf-fields.inside>.acf-field{ padding: 10px 16px }
+.acf-fields>.acf-field, .acf-fields.acf-block-fields>.acf-field, .acf-fields.inside>.acf-field{ padding: 10px 16px }
 .acf-field{ min-height: auto!important }
 .inside.acf-fields>.acf-field>.acf-label label{ cursor: default }
 .acf-field .acf-label{ margin-bottom: 6px }
@@ -305,15 +303,15 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 .ui-dialog .ui-resizable-nw{left:0; top:0}
 .ui-draggable .ui-dialog-titlebar{cursor:move}
 .ui-resizable{position:relative}
-.ui-resizable-handle{
+.interface-navigable-region > .ui-resizable-handle{
     position:absolute; font-size:.1px; display:block; -ms-touch-action:none; touch-action:none;
     &:after{
         position: absolute; top: 0; height: 100%; width: 11px; background: #f1f1f1; content: '';
         border: 1px solid #ddd; border-top: 0; border-bottom: 0;
     }
     &:before{
-        position: absolute; top: 50%; height: 40px; margin-top: -20px; width: 3px; content: '';
-        border-right: 1px solid #cfcfcf;  border-left: 1px solid #cfcfcf; z-index: 1; left: 6px
+        position: absolute; top: 50%; height: 40px; margin-top: -20px; width: 1px; content: '';
+        border-right: 1px solid #cfcfcf;  border-left: 1px solid #cfcfcf; z-index: 1; left: 7px
     }
 }
 .ui-resizable-disabled .ui-resizable-handle,.ui-resizable-autohide .ui-resizable-handle{display:none}
