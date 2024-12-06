@@ -25,7 +25,7 @@ class WPS_Gutenberg
 
         global $_config;
 
-        wp_enqueue_script( 'custom-editor', WPS_PLUGIN_URL . '/public/editor.js', ['wp-blocks', 'wp-dom', 'wp-edit-post'], WPS_VERSION, true );
+        wp_enqueue_script( 'custom-editor', WPS_PLUGIN_URL . 'public/editor.js', ['wp-blocks', 'wp-dom', 'wp-edit-post'], WPS_VERSION, true );
         wp_localize_script('custom-editor', 'wpsEditor', ['class'=>[], 'config'=>$_config->get('gutenberg', [])]);
     }
 
