@@ -69,6 +69,7 @@ wordpress:
   gutenberg:
     replace_reset_styles: true
     remove_core_block: true
+    remove_plugin_block: false
     remove_core_block_patterns: true
     disable_classic_theme_styles: true
     remove_block_library: true
