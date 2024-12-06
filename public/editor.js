@@ -72,7 +72,7 @@ wpsEditor.class = {
 
         blocks.forEach( ( block ) => {
 
-            if ( 'remove_core_block' in wpsEditor.config && wpsEditor.config.remove_core_block === '1' && block.indexOf( 'core/' ) === 0 )
+            if ( 'remove_core_block' in wpsEditor.config && wpsEditor.config.remove_core_block && block.indexOf( 'core/' ) === 0 )
                 wp.blocks.unregisterBlockType( block );
 
             if ( 'remove_plugin_block' in wpsEditor.config && wpsEditor.config.remove_plugin_block.length && wpsEditor.config.remove_plugin_block.indexOf(block) === 0 )

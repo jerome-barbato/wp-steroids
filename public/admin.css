@@ -303,6 +303,8 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 .ui-dialog .ui-resizable-nw{left:0; top:0}
 .ui-draggable .ui-dialog-titlebar{cursor:move}
 .ui-resizable{position:relative}
+.interface-navigable-region.ui-resizable{ padding-left: 6px }
+
 .interface-navigable-region > .ui-resizable-handle{
     position:absolute; font-size:.1px; display:block; -ms-touch-action:none; touch-action:none;
     &:after{
