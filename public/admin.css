@@ -291,8 +291,6 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 /* Interface resize */
 .interface-interface-skeleton__sidebar .interface-complementary-area,
 .interface-interface-skeleton__sidebar .interface-complementary-area__fill{width:100%!important}
-.edit-post-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar,
-.edit-site-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar{display:none;}
 .is-sidebar-opened .interface-interface-skeleton__sidebar{width:350px; min-width: 280px }
 
 /*UI Styles*/
@@ -306,9 +304,18 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 .ui-dialog .ui-resizable-ne{right:0; top:0}
 .ui-dialog .ui-resizable-nw{left:0; top:0}
 .ui-draggable .ui-dialog-titlebar{cursor:move}
-.ui-draggable-handle{-ms-touch-action:none; touch-action:none}
 .ui-resizable{position:relative}
-.ui-resizable-handle{position:absolute; font-size:.1px; display:block; -ms-touch-action:none; touch-action:none}
+.ui-resizable-handle{
+    position:absolute; font-size:.1px; display:block; -ms-touch-action:none; touch-action:none;
+    &:after{
+        position: absolute; top: 0; height: 100%; width: 11px; background: #f1f1f1; content: '';
+        border: 1px solid #ddd; border-top: 0; border-bottom: 0;
+    }
+    &:before{
+        position: absolute; top: 50%; height: 40px; margin-top: -20px; width: 3px; content: '';
+        border-right: 1px solid #cfcfcf;  border-left: 1px solid #cfcfcf; z-index: 1; left: 6px
+    }
+}
 .ui-resizable-disabled .ui-resizable-handle,.ui-resizable-autohide .ui-resizable-handle{display:none}
 .ui-resizable-n{cursor:n-resize; height:7px; width:100%; top:-5px; left:0}
 .ui-resizable-s{cursor:s-resize; height:7px; width:100%; bottom:-5px; left:0}

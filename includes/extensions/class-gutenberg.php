@@ -19,6 +19,17 @@ class WPS_Gutenberg
     }
 
 	/**
+	 * @return void
+	 */
+	function enqueueBlockEditorAssets() {
+
+        global $_config;
+
+        wp_enqueue_script( 'custom-editor', WPS_PLUGIN_URL . '/public/editor.js', ['wp-blocks', 'wp-dom', 'wp-edit-post'], WPS_VERSION, true );
+        wp_localize_script('custom-editor', 'wpsEditor', ['class'=>[], 'config'=>$_config->get('gutenberg', [])]);
+    }
+
+	/**
 	 * @param $allowed_block_types
 	 * @param $editor_context
 	 * @return int[]|string[]
@@ -96,8 +107,9 @@ class WPS_Gutenberg
 		if( is_admin() ){
 
 			if ( $_config->get('gutenberg.remove_core_block', false) )
-				add_filter( 'allowed_block_types_all', [$this, 'removeCoreBlock'], 25, 2 );
+                add_filter( 'allowed_block_types_all', [$this, 'removeCoreBlock'], 25, 2 );
 
+            add_action( 'enqueue_block_editor_assets', [$this, 'enqueueBlockEditorAssets'] );
             add_action( 'enqueue_block_assets', [$this, 'addBlockAssets'] );
             add_action( 'init', [$this, 'registerTemplate']);
         }
