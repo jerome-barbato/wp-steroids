@@ -947,6 +947,7 @@ class WPS_Media {
 
         add_filter('upload_dir', [$this, 'uploadDir'], 10, 2);
         add_filter('wp_calculate_image_srcset_meta', '__return_null');
+        add_filter('wp_img_tag_add_auto_sizes', '__return_false');
 
         if( is_admin() )
         {
