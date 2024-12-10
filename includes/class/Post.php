@@ -29,7 +29,6 @@ if ( class_exists('Timber\Post') ) {
          */
         public function hasExcerpt()
         {
-
             return !empty($this->post_excerpt);
         }
 
@@ -40,8 +39,24 @@ if ( class_exists('Timber\Post') ) {
          */
         public function customField(string $field_name)
         {
-
             return $this->meta($field_name);
+        }
+
+        /**
+         * Mapper for Metabolism/WordpressBundle compatibility
+         *
+         * @return mixed
+         */
+        public function term($query_args = [], $options = [])
+        {
+            if (!is_array($query_args) || isset($query_args[0]))
+                $query_args = ['taxonomy' => $query_args];
+
+            $query_args['number'] = 1;
+
+            $terms = $this->terms($query_args, $options);
+
+            return $terms[0] ?? null;
         }
     }
 }
