@@ -240,9 +240,9 @@ input.large-text, textarea.large-text { width: 35.7rem }
 /* Translation */
 #edittag .term-name-wrap td, #edittag .term-slug-wrap td, #edittag .term-description-wrap td{ position: relative }
 .wps-translate{ cursor: pointer; display: none; background: no-repeat center; background-size: contain; position: absolute; right: 5px; top: 50%; transform: translateY(-50%) }
-.wps-translate--google{ background-image: url("google_translate.svg"); width: 26px; height: 26px }
-.wps-translate--deepl{ background-image: url("deepl_translate.svg"); width: 16px; height: 26px }
-.wps-translate.loading{ background-image: url("loader.svg") }
+.wps-translate--google{ background-image: url("../media/google_translate.svg"); width: 26px; height: 26px }
+.wps-translate--deepl{ background-image: url("../media/deepl_translate.svg"); width: 16px; height: 26px }
+.wps-translate.loading{ background-image: url("../media/loader.svg") }
 #tag-post-content .wps-translate, .term-meta-text-field+.wps-translate{ right: 14px }
 #tag-post-content #wp-advanced_description-wrap .wps-translate, #tag-post-content .input-wrapper .wps-translate{ right: 2px }
 #tag-post-content .acf-field-textarea .wps-translate{ bottom: 10px }
@@ -283,8 +283,8 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 .components-panel #side-sortables .acf-fields>.acf-field{ width: auto!important }
 .components-panel .postbox{ box-shadow: none!important; border-radius: 0 }
 .edit-post-meta-boxes-area .postbox .handlediv{ width: 56px }
-.meta-box-sortables .postbox .handlediv .toggle-indicator::before{ content: url("./arrow.svg" ); transform: scaleY(-1) }
-.meta-box-sortables .postbox.closed .handlediv .toggle-indicator::before{ content: url("./arrow.svg" ); transform: none }
+.meta-box-sortables .postbox .handlediv .toggle-indicator::before{ content: url("../media/arrow.svg"); transform: scaleY(-1) }
+.meta-box-sortables .postbox.closed .handlediv .toggle-indicator::before{ content: url("../media/arrow.svg"); transform: none }
 
 /* Interface resize */
 .interface-interface-skeleton__sidebar .interface-complementary-area,

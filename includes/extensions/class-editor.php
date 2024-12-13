@@ -160,9 +160,9 @@ class WPS_Editor {
      */
     function customAdminScripts()
     {
-        wp_enqueue_script('wps-admin', WPS_PLUGIN_URL.'public/admin.js', ['jquery', 'jquery-ui-resizable'], WPS_VERSION, true);
-        wp_enqueue_style('wps-admin-bar', WPS_PLUGIN_URL.'public/admin_bar.css', [], WPS_VERSION, false);
-        wp_enqueue_style('wps-admin', WPS_PLUGIN_URL.'public/admin.css', [], WPS_VERSION, false);
+        wp_enqueue_script('wps-admin', WPS_PLUGIN_URL.'public/js/admin.js', ['jquery', 'jquery-ui-resizable'], WPS_VERSION, true);
+        wp_enqueue_style('wps-admin-bar', WPS_PLUGIN_URL.'public/css/admin_bar.css', [], WPS_VERSION, false);
+        wp_enqueue_style('wps-admin', WPS_PLUGIN_URL.'public/css/admin.css', [], WPS_VERSION, false);
 
         $object = [
             'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -186,7 +186,7 @@ class WPS_Editor {
      */
     function addCustomLoginHeader()
     {
-        echo '<link rel="stylesheet" href="'.WPS_PLUGIN_URL.'public/login.css"/>';
+        echo '<link rel="stylesheet" href="'.WPS_PLUGIN_URL.'public/css/login.css"/>';
     }
 
 
@@ -436,6 +436,11 @@ class WPS_Editor {
             add_filter( 'admin_body_class', [$this, 'addBodyClass']);
             add_filter( 'tiny_mce_before_init', [$this,'tinyMceInit']);
 
+            add_filter( 'mce_external_plugins', function ( $plugins ) {
+                $plugins['table'] = WPS_PLUGIN_URL.'public/js/tinymce/table.plugin.min.js';
+                return $plugins;
+            });
+
             add_action( 'add_meta_boxes', [$this, 'add_meta_boxes'] );
             add_action( 'post_submitbox_misc_actions', [$this, 'post_submitbox_misc_actions'] );
             add_action( 'admin_menu', [$this, 'adminMenu'], 99);
@@ -448,7 +453,7 @@ class WPS_Editor {
         add_action('init', function (){
 
             if( is_admin_bar_showing() )
-                wp_enqueue_style('wp_steroid_adminbar', WPS_PLUGIN_URL.'public/admin_bar.css', [], WPS_VERSION);
+                wp_enqueue_style('wp_steroid_adminbar', WPS_PLUGIN_URL.'public/css/admin_bar.css', [], WPS_VERSION);
 
         }, 99);
 
