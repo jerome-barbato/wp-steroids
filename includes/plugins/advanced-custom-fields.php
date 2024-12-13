@@ -571,25 +571,33 @@ class WPS_Advanced_Custom_Fields{
         {
             if( !in_array($post_type, ['post', 'page', 'edition']) )
             {
-                if( isset($args['has_options']) && function_exists('acf_add_options_sub_page') ) {
+                if( function_exists('acf_add_options_sub_page') && ($args['has_options']??false) && ($args['has_archive']??false) ) {
 
                     $name = str_replace('_', ' ', $post_type);
 
-                    if( is_bool($args['has_options']) ) {
+                    if( is_string($args['has_options']) ) {
 
-                        $args = [
+                        $page = [
+                            'page_title' 	=> __t(ucfirst($name).' '.__t(strtolower($args['has_options']))),
+                            'menu_title' 	=> __t($args['has_options']),
+                            'autoload'   	=> true
+                        ];
+                    }
+                    else{
+
+                        $page = [
                             'page_title' 	=> __t(ucfirst($name).' '.__t('archive options')),
                             'menu_title' 	=> __t('Archive options'),
                             'autoload'   	=> true
                         ];
                     }
 
-                    $args['menu_slug']   = 'options_'.$post_type;
-                    $args['parent_slug'] = 'edit.php?post_type='.$post_type;
+                    $page['menu_slug']   = 'options_'.$post_type;
+                    $page['parent_slug'] = 'edit.php?post_type='.$post_type;
 
-                    acf_add_options_sub_page($args);
+                    acf_add_options_sub_page($page);
 
-                    $this->addFields($args['menu_slug'], $args, 'group', 'options_page');
+                    $this->addFields($page['menu_slug'], $args, 'group', 'options_page');
                 }
             }
         }
