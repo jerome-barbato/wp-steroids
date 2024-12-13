@@ -361,8 +361,21 @@ class WPS_Editor {
         global $post;
         $current_screen = get_current_screen();
 
-        if($current_screen->base === 'post' && $post)
+        if($current_screen->base === 'post' && $post){
+
             $classes .= ' single-'.$post->post_type;
+
+            if ( $template_slug = get_page_template_slug( $post->ID ) ) {
+
+                $classes .= " {$post->post_type}-template";
+                $template_parts = explode( '/', $template_slug );
+
+                foreach ( $template_parts as $part )
+                    $classes .= " {$post->post_type}-template-" . sanitize_html_class( str_replace( array( '.', '/' ), '-', basename( $part, '.php' ) ) );
+
+                $classes .= " {$post->post_type}-template-" . sanitize_html_class( str_replace( '.', '-', $template_slug ) );
+            }
+        }
 
         return implode(' ', $caps).$classes.(HEADLESS?' headless':'').(URL_MAPPING?' url-mapping':'');
     }
@@ -372,16 +385,30 @@ class WPS_Editor {
      */
     public function add_meta_boxes($post_type)
     {
-        if( current_user_can( 'edit_others_posts' ) && post_type_supports( $post_type, 'sticky' ) ){
+        $current_screen = get_current_screen();
+
+        if( current_user_can( 'edit_others_posts' ) && post_type_supports( $post_type, 'sticky' ) && $current_screen->is_block_editor() ){
 
             add_meta_box('wps_settings', __('Settings'), function($post) {
 
-                if ( current_user_can( 'edit_others_posts' ) && post_type_supports( $post->post_type, 'sticky' ) ) {
+                $sticky_checkbox_checked = is_sticky( $post->post_id ) ? 'checked="checked"' : '';
+                echo '<div id="sticky-span" style="margin-left:0"><input id="sticky" name="sticky" type="checkbox" value="sticky" ' . $sticky_checkbox_checked . ' /> <label for="sticky" class="selectit">' . __( 'Make this post sticky' ) . '</label><br /></div>';
 
-                    $sticky_checkbox_checked = is_sticky( $post->post_id ) ? 'checked="checked"' : '';
-                    echo '<span id="sticky-span" style="margin-left:0"><input id="sticky" name="sticky" type="checkbox" value="sticky" ' . $sticky_checkbox_checked . ' /> <label for="sticky" class="selectit">' . __( 'Make this post sticky' ) . '</label><br /></span>';
-                }
             } , null, 'side', 'high');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function post_submitbox_misc_actions($post)
+    {
+        $current_screen = get_current_screen();
+
+        if( current_user_can( 'edit_others_posts' ) && post_type_supports( $post->post_type, 'sticky' ) && !$current_screen->is_block_editor() ){
+
+            $sticky_checkbox_checked = is_sticky( $post->post_id ) ? 'checked="checked"' : '';
+            echo '<div class="misc-pub-section misc-pub-section-sticky"><input id="sticky" name="sticky" type="checkbox" value="sticky" ' . $sticky_checkbox_checked . ' /> <label for="sticky" class="selectit">' . __( 'Make this post sticky' ) . '</label><br /></div>';
         }
     }
 
@@ -410,6 +437,7 @@ class WPS_Editor {
             add_filter( 'tiny_mce_before_init', [$this,'tinyMceInit']);
 
             add_action( 'add_meta_boxes', [$this, 'add_meta_boxes'] );
+            add_action( 'post_submitbox_misc_actions', [$this, 'post_submitbox_misc_actions'] );
             add_action( 'admin_menu', [$this, 'adminMenu'], 99);
             add_action( 'wp_dashboard_setup', [$this, 'disableDashboardWidgets']);
             add_action( 'admin_print_footer_scripts', [$this, 'customAdminScripts']);
@@ -420,7 +448,7 @@ class WPS_Editor {
         add_action('init', function (){
 
             if( is_admin_bar_showing() )
-                wp_enqueue_style('wp_steroid_adminbar', WPS_PLUGIN_URL.'public/admin_bar.css');
+                wp_enqueue_style('wp_steroid_adminbar', WPS_PLUGIN_URL.'public/admin_bar.css', [], WPS_VERSION);
 
         }, 99);
 

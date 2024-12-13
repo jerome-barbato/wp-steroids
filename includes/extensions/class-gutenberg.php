@@ -25,7 +25,7 @@ class WPS_Gutenberg
 
         global $_config;
 
-        wp_enqueue_script( 'custom-editor', WPS_PLUGIN_URL . '/public/editor.js', ['wp-blocks', 'wp-dom', 'wp-edit-post'], WPS_VERSION, true );
+        wp_enqueue_script( 'custom-editor', WPS_PLUGIN_URL . 'public/editor.js', ['wp-blocks', 'wp-dom', 'wp-edit-post'], WPS_VERSION, true );
         wp_localize_script('custom-editor', 'wpsEditor', ['class'=>[], 'config'=>$_config->get('gutenberg', [])]);
     }
 
@@ -62,16 +62,17 @@ class WPS_Gutenberg
         if( $block_editor_script = $_config->get('gutenberg.block_editor_script', false) ){
 
             $jsUrl = apply_filters('block_editor_settings_theme_script', $base_url.$block_editor_script);
-            wp_enqueue_script('block_editor_script', $jsUrl);
+            wp_enqueue_script('block_editor_script', $jsUrl, [], WPS_VERSION);
         }
 
         if ( $block_editor_style = $_config->get('gutenberg.block_editor_style', false) ){
 
             $cssUrl = apply_filters('block_editor_settings_theme_css', $base_url.$block_editor_style);
-            wp_enqueue_style('block_editor_style', $cssUrl);
+            wp_enqueue_style('block_editor_style', $cssUrl, [], WPS_VERSION);
         }
 
-        wp_enqueue_style('block_editor_reset', WPS_PLUGIN_URL.'public/reset-editor-styles.css');
+        wp_enqueue_script('block_editor_iframe', WPS_PLUGIN_URL.'public/iframe.js', [], WPS_VERSION);
+        wp_enqueue_style('block_editor_reset', WPS_PLUGIN_URL.'public/reset-editor-styles.css', [], WPS_VERSION);
     }
 
     /**
