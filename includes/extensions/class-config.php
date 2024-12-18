@@ -326,12 +326,22 @@ class WPS_Config {
             }
         }
 
-        $disabled = ['disable-custom-colors'];
+        $disabled = [
+            'disable-custom-colors', 'disable-custom-font-sizes', 'disable-custom-gradients', 'disable-layout-styles'
+        ];
 
         foreach ($disabled as $feature){
 
-            if( !in_array($feature, $this->support) )
-                add_theme_support($feature);
+            if( !in_array($feature, $support) )
+                @add_theme_support($feature);
+        }
+
+        $remove = ['core-block-patterns'];
+
+        foreach ($remove as $feature){
+
+            if( !in_array($feature, $support) )
+                @remove_theme_support($feature);
         }
     }
 

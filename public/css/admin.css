@@ -190,6 +190,8 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-field.acf-accordion .acf-label.acf-accordion-title{ padding: 16px }
 .acf-accordion .acf-accordion-title svg.acf-accordion-icon{ right: 16px }
 .acf-field.acf-accordion{ border-top-color: #e0e0e0 }
+.acf-field.acf-accordion .acf-field-group{ padding: 0 }
+.acf-field.acf-accordion .acf-field-group .acf-fields.-border{ border: 0 }
 .acf-fields.-border.acf-clone-fields{ border: 0 }
 .acf-fields.-border.acf-clone-fields > .acf-field{ margin: 0 }
 .acf-fields.-border, .acf-file-uploader .file-wrap{ border-radius: 3px; overflow: hidden }
@@ -203,6 +205,8 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-field-flexible-content .acf-field .acf-label label{ font-weight: 400; font-size: 12px }
 .acf-field-flexible-content .acf-field .acf-label.acf-accordion-title label{ font-weight: 500 }
 .select2-container.-acf .select2-selection { border-color: #c4cdd5; min-height: 30px }
+.acf-gallery-sort{ display: none }
+
 @media screen and (max-width: 782px){
     .form-table>tbody>.acf-tab-wrap td{ padding-left: 0 }
     .form-table>tbody>.acf-field>.acf-label{ padding: 0; margin: 0; padding-top: 10px }
