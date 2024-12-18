@@ -122,12 +122,15 @@ class WPS_Carbon_Fields{
     {
         $render_template = $this->config->get('gutenberg.render_template', '');
         $preview_image = $this->config->get('gutenberg.preview_image', false);
+        $api_version = $this->config->get('acf.block.api_version', 3);
 
         $upload_dir = wp_upload_dir();
 
         foreach ( $this->config->get('block', []) as $block_name => $block_args )
         {
             $block = [
+                '$schema'           => 'https://schemas.wp.org/trunk/block.json',
+                'apiVersion'        => $api_version,
                 'name'             => $block_name,
                 'title'            => __t($block_args['title']??$block_name),
                 'description'      => __t($block_args['description']??''),
@@ -140,6 +143,21 @@ class WPS_Carbon_Fields{
                 'supports'         => $block_args['supports']??[],
                 'front'            => $block_args['front']??true
             ];
+
+            $block['render_callback'] = function ($fields, $attributes, $inner_blocks) use($block){
+
+                $block['fields'] = $fields;
+
+                apply_filters('block_render_callback', $block, '', false);
+            };
+
+            if( $api_version == 3 )
+                $block['supports']['mode'] = false;
+
+            $block['supports']['align'] = boolval($args['supports']['align']??false);
+            $block['supports']['align_text'] = boolval($args['supports']['align_text']??false);
+            $block['supports']['align_content'] = boolval($args['supports']['align_content']??false);
+            $block['supports']['customClassName'] = boolval($args['supports']['customClassName']??false);
 
             if( substr($block_args['icon']??'', -4) == '.svg' )
                 $block['icon'] = file_get_contents(ABSPATH.'/'.$block_args['icon']);
@@ -155,13 +173,6 @@ class WPS_Carbon_Fields{
                     '_preview_image' => $_preview_image
                 ];
             }
-
-            $block['render_callback'] = function ($fields, $attributes, $inner_blocks) use($block){
-
-                $block['fields'] = $fields;
-
-                apply_filters('block_render_callback', $block, '', false);
-            };
 
             $carbon_block = \Carbon_Fields\Block::make($block_name, $block['title']);
             $this->addFields($carbon_block, $block_args);

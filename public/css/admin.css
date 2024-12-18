@@ -182,7 +182,7 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-true-false{ padding: 5px 0 }
 .acf-input-prepend, .acf-input-append{ border-color:#c4cdd5; font-size: 13px }
 .acf-fields>.acf-field, .acf-fields.acf-block-fields>.acf-field, .acf-fields.inside>.acf-field{ padding: 10px 16px }
-.acf-fields.inside>.acf-field.acf-field-clone{ padding: 0 }
+.acf-fields>.acf-field.acf-field-clone{ padding: 0 }
 .acf-field{ min-height: auto!important }
 .inside.acf-fields>.acf-field>.acf-label label{ cursor: default }
 .acf-field .acf-label{ margin-bottom: 6px }
