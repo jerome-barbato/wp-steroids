@@ -23,6 +23,14 @@ if ( class_exists('Timber\Post') ) {
         }
 
         /**
+         * @return string
+         */
+        public function template(): string
+        {
+            return get_page_template_slug($this->id);
+        }
+
+        /**
          * Detect excerpt
          *
          * @return bool
