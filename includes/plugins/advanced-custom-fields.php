@@ -381,8 +381,6 @@ class WPS_Advanced_Custom_Fields{
 
             if( isset($block['post']['thumbnail_id']) ){
 
-                $thumbnail_id = get_post_thumbnail_id($post->ID);
-
                 if( $meta_cache = wp_cache_get($post->ID, 'post_meta') )
                     $meta_cache['_thumbnail_id'] = [$block['post']['thumbnail_id']];
 

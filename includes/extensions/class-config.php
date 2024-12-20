@@ -804,6 +804,9 @@ class WPS_Config {
 
         if ( is_object( $post ) ){
 
+            if( !is_post_type_viewable($post->post_type) )
+                return null;
+
             preg_match_all('/\/{.+?}/', $post_link, $toks);
 
             if( count($toks) && count($toks[0]) ){
