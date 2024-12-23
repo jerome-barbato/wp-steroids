@@ -192,6 +192,8 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-field.acf-accordion{ border-top-color: #e0e0e0 }
 .acf-field.acf-accordion .acf-field-group{ padding: 0 }
 .acf-field.acf-accordion .acf-field-group .acf-fields.-border{ border: 0 }
+.components-panel .inside.acf-fields .acf-field-group{ padding: 0 }
+.components-panel .inside.acf-fields .acf-field-group > .acf-input > .acf-fields.-border{ border: 0 }
 .acf-fields.-border.acf-clone-fields{ border: 0 }
 .acf-fields.-border.acf-clone-fields > .acf-field{ margin: 0 }
 .acf-fields.-border, .acf-file-uploader .file-wrap{ border-radius: 3px; overflow: hidden }
@@ -215,7 +217,6 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-postbox{ overflow: visible }
 .acf-menu-settings .acf-field .acf-label label{ font-weight: 400; opacity: 0.8 }
 .acf-fields.acf-menu-item-fields > .acf-field .acf-label label{ margin-bottom: 5px; color: #646970; font-style: normal }
-.meta-box-sortables *+.acf-postbox{ border-top: 1px solid #e0e0e0!important }
 
 .metabox-location-normal .acf-fields>.acf-field{ padding: 10px 24px }
 
@@ -286,7 +287,6 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 }
 .components-panel #side-sortables .acf-fields>.acf-field{ width: auto!important }
 .components-panel .postbox{ box-shadow: none!important; border-radius: 0 }
-.edit-post-meta-boxes-area .postbox .handlediv{ width: 56px }
 .meta-box-sortables .postbox .handlediv .toggle-indicator::before{ content: url("../media/arrow.svg"); transform: scaleY(-1) }
 .meta-box-sortables .postbox.closed .handlediv .toggle-indicator::before{ content: url("../media/arrow.svg"); transform: none }
 

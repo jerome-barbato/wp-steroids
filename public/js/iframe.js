@@ -17,7 +17,7 @@
         const adminBodyEl = window.parent.document.getElementsByTagName('body');
         const editorRootEl = document.querySelector('.is-root-container');
 
-        const adminClasses = Array.from(adminBodyEl?.[ 0 ]?.classList).filter(name => name.startsWith('page-template-') || name.startsWith('preset-') || name.startsWith('style-'));
+        const adminClasses = Array.from(adminBodyEl?.[ 0 ]?.classList).filter(name => name.startsWith('page-template-') || name.startsWith('preset-') || name.startsWith('style-') || name.startsWith('theme-'));
 
         if (editorRootEl && adminClasses) {
 
