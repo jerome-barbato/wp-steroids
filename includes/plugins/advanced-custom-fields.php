@@ -626,6 +626,37 @@ class WPS_Advanced_Custom_Fields{
         }
     }
 
+    public function formatRestValue($value_formatted, $post_id, $field, $value, $format){
+
+        switch( $field['type'] ){
+
+            case 'image':
+            case 'file':
+
+                if( $value && is_numeric($value) )
+                    $value_formatted = wp_get_attachment_url( $value );
+                break;
+
+            case 'post_object':
+
+                if( $value && is_numeric($value) ){
+
+                    if ( ! $post_type = get_post_type( $value ) )
+                        break;
+
+                    if ( ! $post_type_object = get_post_type_object( $post_type ) )
+                        break;
+
+                    $rest_base = acf_get_object_type_rest_base( $post_type_object );
+
+                    $value_formatted = rest_url( sprintf( '/wp/v2/%s/%s', $rest_base, $value ) );
+                }
+                break;
+        }
+
+        return $value_formatted;
+    }
+
 
     /**
      * ACFPlugin constructor.
@@ -649,6 +680,8 @@ class WPS_Advanced_Custom_Fields{
 
         add_filter('acf/settings/enable_post_types', '__return_false' );
         add_filter('acf/settings/enable_options_pages_ui', '__return_false' );
+
+        add_filter('acf/rest/format_value_for_rest', [$this, 'formatRestValue'], 10, 5);
 
         add_filter('acf/get_field_label', [WPS_Translation::class, 'translate'], 9);
         add_filter('acf/load_fields', [$this, 'load_fields'], 9);

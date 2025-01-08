@@ -204,6 +204,86 @@ class WPS_Security {
         add_filter( 'plugins_auto_update_enabled', '__return_false' );
     }
 
+    /**
+     * @return void
+     */
+    protected function configureRest(){
+
+        if( $remove_core = $this->config->get('security.rest_api.remove_core', false) ) {
+
+            $core_endpoints = is_array($remove_core) ? $remove_core : [
+                'menu-items','blocks','templates','global-styles','navigation','font-families','statuses',
+                'taxonomies','menus','wp_pattern_category','users','comments','search','block-renderer','block-types',
+                'settings','themes','plugins','sidebars','widget-types','widgets','block-directory','pattern-directory',
+                'block-patterns','menu-locations','font-collections','template-parts'
+            ];
+
+            $core_endpoints = array_map(function ($endpoint) { return '/wp/v2/'.$endpoint; }, $core_endpoints);
+
+            add_filter( 'rest_endpoints', function( $routes ) use( $core_endpoints ) {
+
+                foreach ( array_keys( $routes ) as $endpoint ) {
+
+                    foreach ( $core_endpoints as $core_endpoint ) {
+
+                        if (0 === strpos($endpoint, $core_endpoint) ) {
+                            unset($routes[$endpoint]);
+                            break;
+                        }
+
+                        $patterns = ['/autosaves', '/revisions', '/post-process', '/edit',];
+
+                        foreach ($patterns as $pattern) {
+
+                            if ( strpos($endpoint, $pattern) ) {
+                                unset($routes[$endpoint]);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                return $routes;
+            });
+        }
+
+        if( $this->config->get('security.rest_api.ip_whitelist', false) ){
+
+            add_action('rest_api_init', function() {
+
+                if( !is_admin() ) {
+
+                    $whitelist = array_filter(explode(',', $_ENV['REST_API_IP_WHITELIST']??''));
+                    $whitelist = array_merge($whitelist, [ '127.0.0.1', "::1" ]);
+
+                    if( ! in_array($_SERVER['REMOTE_ADDR'], $whitelist ) )
+                        wp_send_json_error('Rest API access have been restricted for security reasons');
+                }
+            });
+        }
+    }
+
+    /**
+     * Disable json and jsonp
+     * @return void
+     */
+    protected function disableRest()
+    {
+        add_filter( 'rest_enabled', '__return_false');
+        add_filter( 'rest_jsonp_enabled', '__return_false');
+
+        add_filter( 'rest_authentication_errors', function( $result ) {
+
+            if ( true === $result || is_wp_error( $result ) )
+                return $result;
+
+            if ( ! is_user_logged_in() )
+                return new wp_error('restricted_rest_api_access','Rest API access have been restricted for security reasons');
+
+            return $result;
+        });
+    }
+
 
     /**
      * SecurityPlugin constructor.
@@ -241,21 +321,10 @@ class WPS_Security {
         }
         else
         {
-            if( !$this->config->get('security.rest_api', false) ){
-
-                add_filter('rest_jsonp_enabled', '__return_false');
-
-                add_filter( 'rest_authentication_errors', function( $result ) {
-
-                    if ( true === $result || is_wp_error( $result ) )
-                        return $result;
-
-                    if ( ! is_user_logged_in() )
-                        return new wp_error('restricted_rest_api_access','Rest API access have been restricted for security reasons');
-
-                    return $result;
-                });
-            }
+            if( !$this->config->get('security.rest_api', false) )
+                $this->disableRest();
+            else
+                $this->configureRest();
 
             if( !$this->config->get('security.xmlrpc', false) )
                 add_filter( 'xmlrpc_enabled', '__return_false' );

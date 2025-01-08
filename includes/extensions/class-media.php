@@ -653,7 +653,29 @@ class WPS_Media {
      */
     public function intermediateImageSizesAdvanced($sizes)
     {
-        unset($sizes['medium'], $sizes['medium_large'], $sizes['large']);
+        foreach ($sizes as $index=>$size){
+
+            if( $size != 'thumbnail' )
+                unset($sizes[$index]);
+        }
+
+        return $sizes;
+    }
+
+    /**
+     * Unset thumbnail image
+     * @return mixed
+     */
+    public function removeImageSizes()
+    {
+        $sizes = get_intermediate_image_sizes();
+
+        foreach ($sizes as $size){
+
+            if( $size != 'thumbnail')
+                remove_image_size($size);
+        }
+
         return $sizes;
     }
 
@@ -949,12 +971,16 @@ class WPS_Media {
         add_filter('wp_calculate_image_srcset_meta', '__return_null');
         add_filter('wp_img_tag_add_auto_sizes', '__return_false');
 
+        // Remove intermediary sizes
+        add_filter('intermediate_image_sizes', [$this, 'intermediateImageSizesAdvanced'] );
+        add_filter('intermediate_image_sizes_advanced', [$this, 'intermediateImageSizesAdvanced'] );
+        add_action('init', [$this, 'removeImageSizes']);
+
         if( is_admin() )
         {
             add_action('admin_init', [$this, 'adminInit'] );
             add_action('wpmu_options', [$this, 'wpmuOptions'] );
             add_action('wp_handle_upload', [$this, 'uploadResize']);
-            add_filter('intermediate_image_sizes_advanced', [$this, 'intermediateImageSizesAdvanced'] );
             add_filter('media_meta', [$this,'mediaMeta'], 10, 2);
             add_filter('media_row_actions', [$this,'mediaRowActions'], 10, 3);
             add_action('post_action_convert', [$this,'postActionConvert']);
