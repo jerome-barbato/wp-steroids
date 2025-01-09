@@ -156,6 +156,38 @@
 		})
 	}
 
+	function ajaxClick(){
+
+		$('a.wp-ajax').click(function(e){
+
+			function ajaxCall(){
+
+				$.get( $el.attr('href') ).then(function (data){
+
+					if( data.continue ){
+
+						ajaxCall($el)
+						$el.text(continue_text.replace(/\[(.+?)\]/g, (_, match) => data[match] || match));
+					}
+					else{
+
+						$el.removeClass('loading');
+						$el.text('Done!')
+						document.location.reload()
+					}
+				})
+			}
+
+			e.preventDefault();
+			var $el = $(this);
+			var continue_text = $el.attr('data-continue');
+
+			$el.addClass('loading');
+
+			ajaxCall($el)
+		})
+	}
+
 	function setupACF(){
 
 		if( $('body').hasClass('no-acf_edit_layout') ){
@@ -176,6 +208,7 @@
 		setupACF()
 		columnAddToMenu()
 		buildClick()
+		ajaxClick()
 	});
 
 	$(window).load(initTranslation);

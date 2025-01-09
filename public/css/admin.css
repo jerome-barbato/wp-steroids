@@ -39,6 +39,8 @@
 { pointer-events: none!important; opacity: 0.5; }
 
 /* Bundle specific */
+.wp-ajax.loading{ pointer-events: none }
+.wp-ajax.loading:before{ background: url("../media/loader-button.svg") no-repeat center; background-size: contain; content: ''; width: 18px; height: 8px; display: inline-block; margin-right: 6px }
 .options-media-php .wrap .form-table tr:nth-child(2),
 .options-media-php .wrap .form-table tr:nth-child(3){ display: none }
 
