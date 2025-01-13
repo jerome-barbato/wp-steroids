@@ -123,10 +123,7 @@ input[type=week]:focus, select:focus, textarea:focus, #titlediv #title:focus, .a
 
 div.mce-toolbar-grp, .html-active .switch-html, .tmce-active .switch-tmce { background: #F9F9F9!important }
 .mce-top-part::before{ display: none }
-.wrap .page-title-action, .wrap .page-title-action:active, .wrap .page-title-action:hover, .wp-core-ui .button, .wp-core-ui .button-secondary {
-    padding: 7px 16px; background: linear-gradient(180deg,#fff,#f9fafb); border: 1px solid #c4cdd5;
-    box-shadow: 0 1px 0 0 rgba(22,29,37, 0.05); border-radius: 3px; line-height: 1; color: #212b36;
-}
+
 .form-wrap p, .form-table p.description, p.help, span.description, .post-attributes-help-text { line-height: 110%; opacity: 0.8 }
 p.help, span.description, .post-attributes-help-text { font-size: 11px }
 .form-table p.description{ font-size: 80% }
@@ -209,7 +206,7 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-image-uploader .image-wrap img{ border-radius: 3px; max-width: 125px }
 .acf-field-flexible-content .acf-field .acf-label label{ font-weight: 400; font-size: 12px }
 .acf-field-flexible-content .acf-field .acf-label.acf-accordion-title label{ font-weight: 500 }
-.select2-container.-acf .select2-selection { border-color: #c4cdd5; min-height: 30px }
+.select2-container.-acf .select2-selection, .acf-color-picker .wp-color-result { border-color: #c4cdd5; min-height: 30px }
 .acf-gallery-sort{ display: none }
 
 @media screen and (max-width: 782px){
