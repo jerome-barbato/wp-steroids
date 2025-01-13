@@ -227,7 +227,7 @@ class WPS_Config {
                             return $columns;
                         });
 
-                        add_action ( 'manage_'.$post_type.'_posts_custom_column', function ( $column, $post_id ) use ( $args )
+                        add_action ( 'manage_'.$post_type.'_posts_custom_column', function ( $column, $post_id ) use ( $args, $post_type )
                         {
                             if( isset($args['custom_columns'][$column]) )
                             {
@@ -260,13 +260,7 @@ class WPS_Config {
                                     $params = $args['columns'][$column]??'';
                                     $value = get_post_meta( $post_id, $column, true );
 
-                                    if( $params == 'bool' ){
-
-                                        $value = boolval($value)?'☑':0;
-                                        $params = '';
-                                    }
-                                    elseif( $value && is_numeric($value) )
-                                        $value = str_replace(',00', '', number_format($value, 2, ',', ' '));
+                                    $value = apply_filters('manage_'.$post_type.'_posts_custom_column_value', $value, $column);
 
                                     if( $value )
                                         echo __t($value).(!empty($params)?' '.$params:'');
