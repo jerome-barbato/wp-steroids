@@ -27,5 +27,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", addBodyClassesToIframe);
+    document.addEventListener("DOMContentLoaded", function (){
+        setTimeout(addBodyClassesToIframe);
+    });
 })();
