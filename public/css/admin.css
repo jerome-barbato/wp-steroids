@@ -46,8 +46,8 @@
 
 #the-list .attachment-thumbnail-container{ position: relative; display: inline-block }
 #the-list .attachment-thumbnail-container:hover .attachment-thumbnail{ display: block; z-index: 999 }
-#the-list .attachment-thumbnail{ width: 60px; height: auto; border-radius: 2px; display: block }
-#the-list .attachment-thumbnail+.attachment-thumbnail{ width: auto; max-width: 300px; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); box-shadow: 0 0 4px rgba(0,0,0,0.2) }
+#the-list .attachment-thumbnail{ width: 50px; height: auto; border-radius: 3px; display: block }
+#the-list .attachment-thumbnail+.attachment-thumbnail{ width: auto; max-width: 150px; border-radius: 4px; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); box-shadow: 0 0 4px rgba(0,0,0,0.2) }
 #the-list .attachment-thumbnail-container+a{ display: none!important }
 .manage-column.num{ text-align: left }
 
@@ -101,7 +101,7 @@ table.widefat{ box-shadow: 0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63
 .post-php .wrap h1, .post-new-php .wrap h1, .term-php .wrap h1{ font-size: 16px }
 .post-php .page-title-action{ display: none }
 #comment-link-box, #edit-slug-box{ padding: 0 }
-ul.category-tabs{ margin-bottom: 4px }
+ul.category-tabs{ margin-bottom: 3px }
 .wp-tab-active, ul.add-menu-item-tabs li.tabs, ul.category-tabs li.tabs, .acf-tab-group li a, .nav-tab { border-radius: 3px 3px 0 0 }
 .postbox, .card, .accordion-container, .menu-edit{ border: 0!important; border-radius: 3px; box-shadow: 0 0 0 1px rgba(3,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15)!important; overflow: hidden }
 .postbox.seamless{ box-shadow: none!important }
@@ -208,6 +208,8 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-field-flexible-content .acf-field .acf-label.acf-accordion-title label{ font-weight: 500 }
 .select2-container.-acf .select2-selection, .acf-color-picker .wp-color-result { border-color: #c4cdd5; min-height: 30px }
 .acf-gallery-sort{ display: none }
+.editor-sidebar__panel .acf-relationship .selection .values, .editor-sidebar__panel .acf-relationship .selection .choices{ width: 100%; float: none }
+.editor-sidebar__panel .acf-relationship .selection .choices{ border-bottom: 1px solid #ccd0d4 }
 
 @media screen and (max-width: 782px){
     .form-table>tbody>.acf-tab-wrap td{ padding-left: 0 }
