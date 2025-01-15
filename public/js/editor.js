@@ -114,20 +114,6 @@ wpsEditor.class = {
         }
     },
 
-    addBodyClass(){
-
-        if( document.querySelector('[name="editor-canvas"]') ){
-
-            let style = document.getElementById('block_editor_style-css')
-
-            if( style ){
-
-                let head = document.getElementsByTagName('head')[0];
-                head.removeChild(style)
-            }
-        }
-    },
-
     init(){
 
         if( typeof wp == 'undefined' )
