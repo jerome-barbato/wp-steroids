@@ -100,6 +100,40 @@ wpsEditor.class = {
         }
     },
 
+    watchResize(){
+
+        const targetNode = document.getElementById('editor');
+
+        const config = {
+            childList: true,
+            subtree: true
+        };
+
+        const callback = (mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === 1 && node.classList.contains('interface-complementary-area__fill')) {
+                            document.body.classList.add('has-sidebar');
+                        }
+                    });
+
+                    mutation.removedNodes.forEach(node => {
+                        if (node.nodeType === 1 && node.classList.contains('interface-complementary-area__fill')) {
+                            document.body.classList.remove('has-sidebar');
+                        }
+                    });
+                }
+            }
+        };
+
+        if( targetNode ){
+
+            const observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+    },
+
     removeCss(){
 
         if( document.querySelector('[name="editor-canvas"]') ){
@@ -123,6 +157,7 @@ wpsEditor.class = {
 
             this.unregisterBlockType()
             this.watchDataChanges()
+            this.watchResize()
 
             this.allowInterfaceResizeInterval = setInterval(this.allowInterfaceResize, 100);
         });

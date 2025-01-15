@@ -295,7 +295,8 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 /* Interface resize */
 .interface-interface-skeleton__sidebar .interface-complementary-area,
 .interface-interface-skeleton__sidebar .interface-complementary-area__fill{width:100%!important}
-.is-sidebar-opened .interface-interface-skeleton__sidebar{width:350px; min-width: 280px }
+.interface-interface-skeleton__sidebar.ui-resizable{ display: none }
+.has-sidebar .interface-interface-skeleton__sidebar.ui-resizable{ display:block; width:350px; min-width: 280px }
 
 /*UI Styles*/
 .ui-dialog .ui-resizable-n{height:2px; top:0}
