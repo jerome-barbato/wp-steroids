@@ -948,9 +948,6 @@ class WPS_Config {
 
                 if( current_user_can('editor') || current_user_can('administrator') )
                     $this->addTableViews();
-
-                if( $editor_style = $this->config->get('editor_style', false) )
-                    add_editor_style( $editor_style );
             }
         });
 

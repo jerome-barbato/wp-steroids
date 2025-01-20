@@ -208,6 +208,11 @@ input.large-text, textarea.large-text { width: 35.7rem }
 .acf-field-flexible-content .acf-field .acf-label.acf-accordion-title label{ font-weight: 500 }
 .select2-container.-acf .select2-selection, .acf-color-picker .wp-color-result { border-color: #c4cdd5; min-height: 30px }
 .acf-gallery-sort{ display: none }
+.acf-gallery .acf-gallery-side-info{ width: calc(100% + 10px) }
+.editor-sidebar__panel .acf-gallery { overflow: hidden }
+.editor-sidebar__panel .acf-gallery .acf-gallery-side{ width: calc(100% + 1px)!important; max-width: 349px }
+.editor-sidebar__panel .acf-gallery .acf-gallery-side-inner{ width: 100%!important }
+.editor-sidebar__panel .acf-gallery .acf-gallery-main{ width: 100%; left: auto }
 .editor-sidebar__panel .acf-relationship .selection .values, .editor-sidebar__panel .acf-relationship .selection .choices{ width: 100%; float: none }
 .editor-sidebar__panel .acf-relationship .selection .choices{ border-bottom: 1px solid #ccd0d4 }
 
@@ -281,7 +286,6 @@ textarea.term-meta-text-field+.wps-translate{ bottom: 16px; transform: none; top
 .acf-postbox.seamless > .postbox-header{ display: none }
 .components-panel__body{ border-bottom: 0 }
 .form-table th{ font-weight: normal }
-#side-sortables .acf-gallery-sort{ display: none }
 
 /* Fix Gutenberg ACF */
 .components-panel .edit-post-meta-boxes-area #poststuff h2.hndle{

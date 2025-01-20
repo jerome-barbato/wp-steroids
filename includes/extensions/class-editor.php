@@ -9,6 +9,29 @@ class WPS_Editor {
 
 
     /**
+     * Add custom mce css
+     * @param $mce_css
+     * @return string
+     */
+    public function tinyMceCss( $mce_css )
+    {
+        if( !$custom_mce_css = $this->config->get('mce.css', false) )
+            $custom_mce_css = $this->config->get('mce_css', false);
+
+        if( $custom_mce_css ){
+
+            if ( ! empty( $mce_css ) )
+                $mce_css .= ',';
+
+            $mce_css .= $custom_mce_css;
+
+        }
+
+        return $mce_css;
+    }
+
+
+    /**
      * Allow non-breakable space
      * @param $init
      * @return array
@@ -28,10 +51,11 @@ class WPS_Editor {
      */
     public function tinyMceButtons( $mce_buttons )
     {
-        $mce_buttons = $this->config->get('mce_buttons', ['formatselect','bold','italic','underline','sup','strikethrough','bullist','numlist','blockquote','hr','alignleft',
-            'aligncenter','alignright','alignjustify','link','unlink','wp_more','spellchecker','wp_adv','dfw']);
+        if( !$custom_mce_buttons = $this->config->get('mce.buttons', false) )
+            $custom_mce_buttons = $this->config->get('mce_buttons', false);
 
-        return $mce_buttons;
+        return $custom_mce_buttons ?: ['formatselect','bold','italic','underline','sup','strikethrough','bullist','numlist','blockquote','hr','alignleft',
+            'aligncenter','alignright','alignjustify','link','unlink','wp_more','spellchecker','wp_adv','dfw'];
     }
 
     /**
@@ -435,6 +459,7 @@ class WPS_Editor {
             add_filter( 'page_row_actions', [$this, 'rowActions'], 10, 2);
             add_filter( 'admin_body_class', [$this, 'addBodyClass']);
             add_filter( 'tiny_mce_before_init', [$this,'tinyMceInit']);
+            add_filter( 'mce_css', [$this,'tinyMceCss']);
 
             add_filter( 'mce_external_plugins', function ( $plugins ) {
                 $plugins['table'] = WPS_PLUGIN_URL.'public/js/tinymce/table.plugin.min.js';
